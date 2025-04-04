@@ -18,6 +18,42 @@
  *
  */
 
-fun sudokuChecker(array: Array<CharArray>): Boolean {
+fun sudokuChecker(board: Array<CharArray>): Boolean {
+
+
+    for (row in board) {
+        if (hasDuplicates(row)) return false
+    }
+
+
+    for (col in 0..< 9) {
+        val column = CharArray(9) { row -> board[row][col] }
+        if (hasDuplicates(column)) return false
+    }
+
+
+
+    for (boxRow in 0..< 3) {
+        for (boxCol in 0..< 3) {
+            val subgrid = CharArray(9) { index ->
+                val row = boxRow * 3 + index / 3
+                val col = boxCol * 3 + index % 3
+                board[row][col]
+            }
+            if (hasDuplicates(subgrid)) return false
+        }
+    }
+
+    return true
+}
+
+private fun hasDuplicates(cells: CharArray): Boolean {
+    val seen = mutableSetOf<Char>()
+    for (cell in cells) {
+        if (cell == '-') continue
+        if (!cell.isDigit() || cell == '0') return true
+        if (cell in seen) return true
+        seen.add(cell)
+    }
     return false
 }

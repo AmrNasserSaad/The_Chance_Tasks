@@ -2,8 +2,15 @@ fun main() {
 
 
     // region true test cases
+
     check(
-        name = "when have a string contains of four numeric segments, separated by three dots (.) ,  it should return true  ",
+        name = "when have a string contains four numeric segments, it should return true  ",
+        result = ipv4Checker(address = "198.162.1.1"),
+        correctResult = true
+    )
+
+    check(
+        name = "when have a string is separated by three dots (.) , it should return true  ",
         result = ipv4Checker(address = "198.162.1.1"),
         correctResult = true
     )
@@ -12,8 +19,6 @@ fun main() {
 
 
     // region false test cases
-
-
 
     check(
         name = "when have a string contains of number of segments does not equal 4 , it should return false",
@@ -27,11 +32,13 @@ fun main() {
         correctResult = false
     )
 
+
     check(
         name = "when the segment contains a number is not between 0 and 255 range , it should return false",
         result = ipv4Checker(address = "500.600.700.800"),
         correctResult = false
     )
+
 
     check(
         name = "when the segment contains a non numeric input , it should return false",
@@ -39,17 +46,27 @@ fun main() {
         correctResult = false
     )
 
+
     check(
         name = "when the segment contains a two digits or more and starting with a zero , it should return false",
         result = ipv4Checker(address = "01.162.1.2"),
         correctResult = false
     )
 
+
     check(
-        name = "when a string is empty or blank , it should return false",
+        name = "when a string is empty , it should return false",
         result = ipv4Checker(address = ""),
         correctResult = false
     )
+
+
+    check(
+        name = "when a string is blank , it should return false",
+        result = ipv4Checker(address = " "),
+        correctResult = false
+    )
+
 
     check(
         name = "when the segment contains a negative number , it should return false",
@@ -63,10 +80,6 @@ fun main() {
 }
 
 
-private fun check(name: String, result: Boolean, correctResult: Boolean) {
-    if (result == correctResult) {
-        println("Success - $name")
-    } else {
-        println("Failed - $name")
-    }
-}
+private fun check(name: String, result: Boolean, correctResult: Boolean) =
+    if (result == correctResult) println("Success - $name") else println("Failed - $name")
+

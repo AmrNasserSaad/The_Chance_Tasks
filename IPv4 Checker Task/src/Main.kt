@@ -20,6 +20,20 @@
  */
 
 fun ipv4Checker(address: String): Boolean {
-    return false
+
+    if (address.isBlank()) return false
+
+    val segments:List<String> = address.split(".")
+    if (segments.size != 4 || address.count { it == '.' } != 3) return false
+
+    for (segment in segments) {
+
+        if (segment.isEmpty() || (segment.length > 1 && segment[0] == '0')) return false
+
+        val num:Int = segment.toIntOrNull() ?: return false
+        if (num !in 0..255) return false
+    }
+
+    return true
 }
 
